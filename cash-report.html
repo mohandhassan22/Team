@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>كشف الحركات النقدية</title>
+  <link rel="shortcut icon" href="img/Team-Warek-Logo.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="style/stylecashre.css">
+  <link rel="stylesheet" href="style/stylehome.css">
+</head>
+<body>
+  <div class="header">
+    <img src="img/Team-Warek-Logo.jpg" alt="Logo" class="logo">
+    <div class="welcome">مرحبًا، <span id="username"></span>!</div>
+    <a href="home.html"><i class="fa-solid fa-house-user"></i>home</a>
+  </div>
+
+  <div class="container">
+    <h1>كشف حركات النقدية</h1>
+
+    <div class="filter-box">
+      <label>من تاريخ:</label>
+      <input type="date" id="fromDate">
+      <label>إلى:</label>
+      <input type="date" id="toDate">
+      <button onclick="filterByDate()">عرض</button>
+    </div>
+
+    <table id="cashTable">
+      <thead>
+        <tr>
+          <th>التاريخ</th>
+          <th>BSS</th>
+          <th>إضافة We Pay</th>
+          <th>سحب We Pay</th>
+          <th>سحب Visa</th>
+          <th>Refund</th>
+          <th>سحوبات أخرى</th>
+          <th>الإجمالي</th>
+          <th>المستخدم</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script type="module" src="script/report.js"></script>
+  <script src="script/access-control.js"></script>
+</body>
+</html>

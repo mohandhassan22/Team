@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>عرض النموذج</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body{font-family:Tahoma, Arial, sans-serif;margin:0;background:#f8f0ff;color:#333}
+    .header{background:#6a1b9a;color:#fff;padding:12px}
+    .container{max-width:1000px;margin:20px auto;padding:12px}
+    .actions{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+    .actions a, .actions button{background:#6a1b9a;color:#fff;padding:8px 12px;border-radius:6px;text-decoration:none;border:none;cursor:pointer}
+    .actions a[disabled], .actions button[disabled]{background:#ccc;cursor:not-allowed}
+    object{width:100%;height:calc(100vh - 140px);border:1px solid #ddd;background:#fff}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="container">
+      <strong>عرض النموذج</strong>
+    </div>
+  </div>
+  <div class="container">
+    <div class="actions">
+      <a id="backBtn" href="pdf.html"><i class="fas fa-arrow-left"></i> العودة</a>
+      <button id="printBtn" type="button"><i class="fas fa-print"></i> طباعة</button>
+    </div>
+
+    <div id="viewerWrap">
+      <p id="missing" style="display:none">لم يتم تحديد ملف للعرض.</p>
+      <object id="pdfViewer" data="" type="application/pdf">
+        <p>ملف PDF غير مدعوم في هذا المتصفح.</p>
+      </object>
+    </div>
+  </div>
+
+  <script>
+    function getQuery(name){
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+
+    const src = getQuery('src');
+    const viewer = document.getElementById('pdfViewer');
+    const missing = document.getElementById('missing');
+    const printBtn = document.getElementById('printBtn');
+
+    if (!src) {
+      viewer.style.display = 'none';
+      missing.style.display = 'block';
+      printBtn.disabled = true;
+    } else {
+      const url = decodeURIComponent(src);
+      viewer.data = url;
+
+      // زر الطباعة
+      printBtn.addEventListener('click', () => {
+        const printWindow = window.open(url, '_blank');
+        if (printWindow) {
+          printWindow.addEventListener('load', () => {
+            printWindow.focus();
+            printWindow.print();
+          });
+        } else {
+          alert('يجب السماح بفتح النوافذ المنبثقة للطباعة.');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
